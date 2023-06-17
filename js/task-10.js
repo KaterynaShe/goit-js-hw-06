@@ -3,13 +3,29 @@ function getRandomHexColor() {
     .toString(16)
     .padStart(6, 0)}`;
 }
-
-const controls = document.querySelector('controls');
-const inputNumberEl = document.querySelector('[type="number"]');
-const createBtnEl = document.querySelector('button[data-create]');
-const destroyBtnEl = document.querySelector('button[data-destroy]');
-const divBoxesEl = document.getElementById('boxes');
-divBoxesEl.style.display = 'flex';
-divBoxesEl.style.flexWrap = 'wrap';
-divBoxesEl.style.alignItems = 'center';
-divBoxesEl.style.marginTop = '30px';
+const ref = {
+  inputnumber: document.querySelector("#controls>input"),
+  btnCreate: document.querySelector("button[data-create]"),
+  btnDestroy: document.querySelector("button[data-destroy]"),
+};
+const createBoxes = (amount) => {
+  const elementsToAdd = [];
+  for (let i = 0; i < amount; i++) {
+    const div = document.createElement("div");
+    div.style.height = `${30 + 10 * i}px`;
+    div.style.width = `${30 + 10 * i}px`;
+    div.style.background = getRandomHexColor();
+    elementsToAdd.push(div);
+  }
+  return elementsToAdd;
+};
+const destroyBoxes = () => {
+  boxes.innerHTML = "";
+};
+ref.btnCreate.addEventListener("click", () => {
+  let boxesToAdd = createBoxes(ref.inputnumber.value);
+  boxes.append(...boxesToAdd);
+});
+ref.btnDestroy.addEventListener("click", () => {
+  destroyBoxes.call();
+});
